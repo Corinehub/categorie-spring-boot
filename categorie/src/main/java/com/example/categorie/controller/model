@@ -1,0 +1,30 @@
+package com.example.categorie.model;
+
+import jakarta.persistence.*;
+
+@Entity
+public class Categorie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nom;
+    private String description;
+    private boolean active = true;
+
+    public Categorie() {}
+
+    public Categorie(String nom, String description) {
+        this.nom = nom;
+        this.description = description;
+    }
+
+    public Long getId() { return id; }
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
+}
