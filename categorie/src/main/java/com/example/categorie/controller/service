@@ -1,0 +1,36 @@
+package com.example.categorie.service;
+
+import com.example.categorie.model.Categorie;
+import com.example.categorie.repository.CategorieRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class CategorieService {
+
+    private final CategorieRepository repo;
+
+    public CategorieService(CategorieRepository repo) {
+        this.repo = repo;
+    }
+
+    public Categorie creer(Categorie c) {
+        return repo.save(c);
+    }
+
+    public List<Categorie> lister() {
+        return repo.findAll();
+    }
+
+    public Optional<Categorie> rechercher(Long id) {
+        return repo.findById(id);
+    }
+
+    public Categorie desactiver(Long id) {
+        Categorie c = repo.findById(id).orElseThrow();
+        c.setActive(false);
+        return repo.save(c);
+    }
+}
