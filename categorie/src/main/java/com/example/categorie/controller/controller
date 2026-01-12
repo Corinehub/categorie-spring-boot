@@ -1,0 +1,41 @@
+package com.example.categorie.controller;
+
+import com.example.categorie.model.Categorie;
+import com.example.categorie.service.CategorieService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/categories")
+public class CategorieController {
+
+    private final CategorieService service;
+
+    public CategorieController(CategorieService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ResponseEntity<Categorie> creer(@RequestBody Categorie c) {
+        return ResponseEntity.ok(service.creer(c));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Categorie>> lister() {
+        return ResponseEntity.ok(service.lister());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Categorie> rechercher(@PathVariable Long id) {
+        return service.rechercher(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}/desactiver")
+    public ResponseEntity<Categorie> desactiver(@PathVariable Long id) {
+        return ResponseEntity.ok(service.desactiver(id));
+    }
+}
